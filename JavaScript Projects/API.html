@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+	button {
+	margin-bottom: 10px;
+	      display: block;
+    margin: 0 auto;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    table {
+	margin-top: 10px;
+      width: auto;
+      border-collapse: collapse;
+      border: 1px solid #dddddd;
+    }
+	tr:nth-child(even){background-color: #f2f2f2;}
+	tr:hover {background-color: #ddd;}
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #dddddd;
+      text-align: center;
+    }
+    th {
+      background-color: #04AA6D;
+    }
+	#todoTable thead {
+      display: none;
+    }
+	 .container {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <button id="loadData">Load Data</button>
+  <div class="container">
+  <table id="todoTable">
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Completed</th>
+      </tr>
+    </thead>
+    <tbody id="todoBody"></tbody>
+  </table>
+
+</div>
+  <script>
+
+    document.getElementById("loadData").addEventListener("click", function() {
+		//document.getElementById("todoTable").getElementsByTagName("thead")[0].style.display = "table-header-group";
+		fetch('https://jsonplaceholder.typicode.com/todos')
+			.then(response => response.json())
+			.then(data => {
+			console.table(data);
+			document.getElementById("todoTable").getElementsByTagName("thead")[0].style.display = "table-header-group";
+			const todoBody = document.getElementById("todoBody");
+			todoBody.innerHTML = '';
+			data.forEach(todo => {
+				const row = document.createElement('tr');
+				row.innerHTML = `
+					<td>${todo.userId}</td>
+					<td>${todo.id}</td>
+					<td>${todo.title}</td>
+					<td>${todo.completed ? 'Yes' : 'No'}</td>
+				`;
+				todoBody.appendChild(row);
+			});
+        })
+        .catch(error => {
+			console.error('Error fetching data:', error);
+        });
+    });
+  </script>
+</body>
+</html>

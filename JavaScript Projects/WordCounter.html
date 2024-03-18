@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Counter</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    #wordCounter {
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 300px;
+    }
+    h1 {
+        text-align: center;
+    }
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: none;
+    }
+    button {
+        padding: 8px 15px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: block;
+        margin: 0 auto;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    p {
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<div id="wordCounter">
+    <h1>Word Counter</h1>
+    <textarea id="textInput" rows="5" cols="50" placeholder="Enter text here..."></textarea>
+    <button onclick="countWords()">Count Words</button>
+    <p id="wordCount">Word count: 0</p>
+	<p id="charCount">Character count: 0</p>
+</div>
+
+<script>
+    function countWords() {
+        const text = document.getElementById("textInput").value.trim();
+        const words = text.split(/\s+/).filter(word => word !== "");
+        const wordCount = words.length;
+		const charCount = text.replace(/\s+/g, '').length;
+        document.getElementById("wordCount").textContent = `Word count: ${wordCount}`;
+		document.getElementById("charCount").textContent = `Character count: ${charCount}`;
+    }
+</script>
+</body>
+</html>
